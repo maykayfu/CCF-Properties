@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>CCF Properties | Management Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --green-900:#1B4332;
+  --green-800:#2D6A4F;
+  --green-700:#40916C;
+  --green-500:#52B788;
+  --green-300:#95D5B2;
+  --green-100:#D8F3DC;
+  --green-50:#F0FBF4;
+  --earth-900:#5C3D1E;
+  --earth-700:#8B5E2F;
+  --earth-500:#B7904A;
+  --earth-300:#D4B483;
+  --earth-100:#F0E0C4;
+  --earth-50:#FAF3E8;
+  --cream:#FAF7F2;
+  --white:#FFFFFF;
+  --text-dark:#1C1C1E;
+  --text-mid:#5C5C6E;
+  --text-light:#9999AA;
+  --border:#E8E0D5;
+  --sidebar-w:260px;
+  --red:#C0392B;
+  --amber:#D97706;
+  --blue:#2563EB;
+}
+html{height:100%;}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--cream);
+  color:var(--text-dark);
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+/* ── Layout ── */
+.app{display:flex;height:100vh;overflow:hidden;}
+
+/* ── Sidebar ── */
+.sidebar{
+  width:var(--sidebar-w);
+  background:var(--green-900);
+  display:flex;
+  flex-direction:column;
+  flex-shrink:0;
+  overflow-y:auto;
+}
+.sidebar-logo{
+  padding:28px 24px 20px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.logo-mark{
+  font-family:'Playfair Display',serif;
+  font-size:1.4rem;
+  color:var(--white);
+  font-weight:700;
+  letter-spacing:-0.02em;
+}
+.logo-sub{
+  font-size:0.7rem;
+  color:var(--green-300);
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  margin-top:2px;
+}
+.sidebar-section{padding:20px 16px 8px;}
+.sidebar-label{
+  font-size:0.65rem;
+  font-weight:700;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.35);
+  padding:0 8px;
+  margin-bottom:6px;
+}
+.nav-item{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px 12px;
+  border-radius:10px;
+  cursor:pointer;
+  margin-bottom:2px;
+  transition:all 0.2s;
+  color:rgba(255,255,255,0.65);
+  font-size:0.88rem;
+  font-weight:500;
+  border:none;
+  background:none;
+  width:100%;
+  text-align:left;
+}
+.nav-item:hover{background:rgba(255,255,255,0.08);color:white;}
+.nav-item.active{background:var(--green-700);color:white;}
+.nav-icon{font-size:1.1rem;width:20px;text-align:center;flex-shrink:0;}
+.nav-badge{
+  margin-left:auto;
+  background:var(--earth-500);
+  color:white;
+  font-size:0.65rem;
+  font-weight:700;
+  padding:2px 7px;
+  border-radius:50px;
+}
+.sidebar-footer{
+  margin-top:auto;
+  padding:16px;
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+.sidebar-user{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:8px;
+  border-radius:10px;
+  cursor:pointer;
+  transition:background 0.2s;
+}
+.sidebar-user:hover{background:rgba(255,255,255,0.06);}
+.avatar{
+  width:36px;height:36px;
+  border-radius:50%;
+  background:var(--green-700);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;flex-shrink:0;
+}
+.user-info{flex:1;}
+.user-name{color:white;font-size:0.85rem;font-weight:600;}
+.user-role{color:rgba(255,255,255,0.45);font-size:0.72rem;}
+
+/* ── Main ── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+
+/* ── Top Bar ── */
+.topbar{
+  background:white;
+  border-bottom:1px solid var(--border);
+  padding:0 32px;
+  height:64px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-shrink:0;
+}
+.page-title{font-size:1.1rem;font-weight:700;color:var(--text-dark);}
+.page-sub{font-size:0.78rem;color:var(--text-light);margin-top:1px;}
+.topbar-actions{display:flex;align-items:center;gap:12px;}
+.topbar-btn{
+  display:flex;align-items:center;gap:6px;
+  padding:8px 16px;
+  border-radius:8px;
+  font-size:0.82rem;
+  font-weight:600;
+  cursor:pointer;
+  border:none;
+  font-family:'Inter',sans-serif;
+  transition:all 0.2s;
+}
+.btn-ghost{background:none;color:var(--text-mid);border:1px solid var(--border);}
+.btn-ghost:hover{border-color:var(--green-700);color:var(--green-700);}
+.btn-solid{background:var(--green-800);color:white;}
+.btn-solid:hover{background:var(--green-700);}
+.notif-btn{
+  position:relative;background:none;border:none;
+  font-size:1.2rem;cursor:pointer;padding:6px;
+}
+.notif-dot{
+  position:absolute;top:4px;right:4px;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--earth-500);border:1.5px solid white;
+}
+
+/* ── Content ── */
+.content{flex:1;overflow-y:auto;padding:28px 32px;}
+.view{display:none;}
+.view.active{display:block;}
+
+/* ── Cards ── */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.kpi-card{
+  background:white;border-radius:16px;
+  padding:20px;
+  border:1px solid var(--border);
+  position:relative;
+  overflow:hidden;
+}
+.kpi-card::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:3px;
+  border-radius:16px 16px 0 0;
+}
+.kpi-green::before{background:var(--green-500);}
+.kpi-earth::before{background:var(--earth-500);}
+.kpi-red::before{background:var(--red);}
+.kpi-blue::before{background:var(--blue);}
+.kpi-icon{font-size:1.6rem;margin-bottom:12px;}
+.kpi-val{font-size:1.9rem;font-weight:700;line-height:1;margin-bottom:4px;}
+.kpi-label{font-size:0.78rem;color:var(--text-light);font-weight:500;}
+.kpi-change{
+  display:inline-flex;align-items:center;gap:3px;
+  font-size:0.72rem;font-weight:600;
+  margin-top:6px;padding:2px 7px;
+  border-radius:50px;
+}
+.change-up{background:#E8F5E9;color:#2E7D32;}
+.change-dn{background:#FFEBEE;color:#C62828;}
+
+.card{
+  background:white;border-radius:16px;
+  border:1px solid var(--border);
+  overflow:hidden;
+  margin-bottom:20px;
+}
+.card-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 20px;
+  border-bottom:1px solid var(--border);
+}
+.card-title{font-size:0.95rem;font-weight:700;color:var(--text-dark);}
+.card-action{
+  font-size:0.78rem;color:var(--green-700);
+  font-weight:600;cursor:pointer;
+  background:none;border:none;font-family:'Inter',sans-serif;
+}
+.card-action:hover{color:var(--green-900);}
+.card-body{padding:20px;}
+
+/* ── Grid Layouts ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.grid-3-1{display:grid;grid-template-columns:2fr 1fr;gap:20px;}
+
+/* ── Table ── */
+table{width:100%;border-collapse:collapse;}
+thead th{
+  text-align:left;padding:10px 14px;
+  font-size:0.72rem;font-weight:700;
+  letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--text-light);
+  background:var(--cream);
+  border-bottom:1px solid var(--border);
+}
+tbody td{
+  padding:12px 14px;
+  font-size:0.85rem;
+  border-bottom:1px solid #F5F0EA;
+  color:var(--text-dark);
+}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover td{background:#FAFAF8;}
+
+/* ── Status Pills ── */
+.pill{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 10px;border-radius:50px;
+  font-size:0.72rem;font-weight:700;
+}
+.pill-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.pill-green{background:var(--green-100);color:var(--green-900);}
+.pill-green .pill-dot{background:var(--green-500);}
+.pill-amber{background:#FEF3C7;color:#92400E;}
+.pill-amber .pill-dot{background:var(--amber);}
+.pill-red{background:#FEE2E2;color:#991B1B;}
+.pill-red .pill-dot{background:var(--red);}
+.pill-blue{background:#DBEAFE;color:#1E40AF;}
+.pill-blue .pill-dot{background:var(--blue);}
+.pill-grey{background:#F3F4F6;color:#374151;}
+.pill-grey .pill-dot{background:#9CA3AF;}
+
+/* ── Progress Bar ── */
+.progress-row{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.progress-label{font-size:0.82rem;color:var(--text-mid);width:120px;flex-shrink:0;}
+.progress-bar{flex:1;height:8px;background:var(--earth-100);border-radius:50px;overflow:hidden;}
+.progress-fill{height:100%;border-radius:50px;transition:width 0.6s ease;}
+.progress-val{font-size:0.82rem;font-weight:700;color:var(--text-dark);width:36px;text-align:right;}
+
+/* ── Revenue Chart (CSS-only) ── */
+.chart-bars{
+  display:flex;align-items:flex-end;gap:8px;
+  height:140px;padding:0 4px;
+}
+.chart-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;}
+.chart-bar{
+  width:100%;border-radius:6px 6px 0 0;
+  background:var(--green-500);
+  transition:opacity 0.2s;
+  cursor:pointer;
+  position:relative;
+}
+.chart-bar:hover{opacity:0.8;}
+.chart-bar.earth{background:var(--earth-300);}
+.chart-bar-label{font-size:0.65rem;color:var(--text-light);font-weight:500;}
+.chart-axis{
+  display:flex;justify-content:space-between;
+  padding:8px 4px 0;
+}
+.chart-axis span{font-size:0.65rem;color:var(--text-light);}
+
+/* ── Activity Feed ── */
+.activity-item{
+  display:flex;gap:12px;padding:12px 0;
+  border-bottom:1px solid #F5F0EA;
+}
+.activity-item:last-child{border-bottom:none;}
+.activity-dot{
+  width:32px;height:32px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.9rem;flex-shrink:0;margin-top:2px;
+}
+.activity-info{flex:1;}
+.activity-title{font-size:0.85rem;font-weight:600;margin-bottom:2px;}
+.activity-desc{font-size:0.78rem;color:var(--text-light);}
+.activity-time{font-size:0.72rem;color:var(--text-light);margin-top:3px;}
+
+/* ── Maintenance Cards ── */
+.maint-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px;}
+.maint-kpi{
+  background:white;border-radius:14px;
+  padding:18px;border:1px solid var(--border);
+  text-align:center;
+}
+.maint-kpi-num{font-size:2rem;font-weight:700;color:var(--text-dark);}
+.maint-kpi-label{font-size:0.78rem;color:var(--text-light);margin-top:2px;}
+
+.ticket-card{
+  background:white;border-radius:14px;
+  border:1px solid var(--border);
+  padding:16px 18px;
+  margin-bottom:12px;
+  display:flex;gap:14px;
+  align-items:flex-start;
+  transition:all 0.2s;
+  cursor:pointer;
+}
+.ticket-card:hover{border-color:var(--green-300);box-shadow:0 4px 16px rgba(45,106,79,0.08);}
+.ticket-icon{
+  width:40px;height:40px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;flex-shrink:0;
+}
+.ticket-body{flex:1;}
+.ticket-title{font-size:0.9rem;font-weight:700;margin-bottom:3px;}
+.ticket-meta{font-size:0.78rem;color:var(--text-light);margin-bottom:8px;}
+.ticket-footer{display:flex;align-items:center;justify-content:space-between;}
+.priority-tag{
+  font-size:0.68rem;font-weight:700;
+  padding:2px 8px;border-radius:4px;
+  text-transform:uppercase;letter-spacing:0.05em;
+}
+.pri-high{background:#FEE2E2;color:#991B1B;}
+.pri-med{background:#FEF3C7;color:#92400E;}
+.pri-low{background:var(--green-100);color:var(--green-900);}
+
+/* ── Form Styles ── */
+.form-section{margin-bottom:24px;}
+.form-title{
+  font-size:0.82rem;font-weight:700;
+  color:var(--text-mid);
+  text-transform:uppercase;letter-spacing:0.08em;
+  margin-bottom:12px;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--border);
+}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-group{display:flex;flex-direction:column;gap:5px;}
+.form-group.full{grid-column:1/-1;}
+label{font-size:0.8rem;font-weight:600;color:var(--text-mid);}
+input,select,textarea{
+  padding:10px 12px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  font-size:0.88rem;
+  font-family:'Inter',sans-serif;
+  color:var(--text-dark);
+  background:white;
+  transition:border-color 0.2s;
+  outline:none;
+  width:100%;
+}
+input:focus,select:focus,textarea:focus{border-color:var(--green-500);box-shadow:0 0 0 3px rgba(82,183,136,0.12);}
+textarea{resize:vertical;min-height:90px;}
+
+/* ── Docs ── */
+.doc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.doc-card{
+  background:white;border:1px solid var(--border);
+  border-radius:14px;padding:16px;
+  display:flex;flex-direction:column;gap:10px;
+  transition:all 0.2s;cursor:pointer;
+}
+.doc-card:hover{border-color:var(--green-300);box-shadow:0 4px 16px rgba(45,106,79,0.08);}
+.doc-icon{
+  width:44px;height:44px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.4rem;
+  background:var(--earth-50);
+}
+.doc-name{font-size:0.88rem;font-weight:700;color:var(--text-dark);}
+.doc-meta{font-size:0.73rem;color:var(--text-light);}
+.doc-actions{display:flex;gap:8px;margin-top:4px;}
+.doc-btn{
+  flex:1;padding:6px;border-radius:7px;
+  font-size:0.75rem;font-weight:600;
+  text-align:center;cursor:pointer;border:none;
+  font-family:'Inter',sans-serif;transition:all 0.2s;
+}
+.doc-view{background:var(--green-50);color:var(--green-800);}
+.doc-view:hover{background:var(--green-100);}
+.doc-dl{background:var(--earth-50);color:var(--earth-700);}
+.doc-dl:hover{background:var(--earth-100);}
+
+/* ── Upload Zone ── */
+.upload-zone{
+  border:2px dashed var(--border);
+  border-radius:14px;
+  padding:36px;
+  text-align:center;
+  cursor:pointer;
+  transition:all 0.2s;
+  background:var(--cream);
+  margin-bottom:20px;
+}
+.upload-zone:hover{border-color:var(--green-500);background:var(--green-50);}
+.upload-icon{font-size:2.5rem;margin-bottom:10px;}
+.upload-text{font-size:0.9rem;font-weight:600;color:var(--text-mid);margin-bottom:4px;}
+.upload-sub{font-size:0.78rem;color:var(--text-light);}
+
+/* ── Tenant Portal ── */
+.rent-card{
+  background:linear-gradient(135deg,var(--green-800),var(--green-900));
+  border-radius:18px;padding:28px;color:white;
+  position:relative;overflow:hidden;
+  margin-bottom:20px;
+}
+.rent-card::after{
+  content:'🏠';
+  position:absolute;right:24px;top:50%;
+  transform:translateY(-50%);
+  font-size:5rem;opacity:0.08;
+}
+.rent-amount{font-size:2.8rem;font-weight:700;margin:8px 0 4px;}
+.rent-due{font-size:0.85rem;opacity:0.75;}
+.rent-btns{display:flex;gap:10px;margin-top:20px;}
+.rent-pay-btn{
+  padding:12px 28px;border-radius:10px;
+  font-size:0.88rem;font-weight:700;
+  cursor:pointer;border:none;
+  font-family:'Inter',sans-serif;transition:all 0.2s;
+}
+.pay-primary{background:white;color:var(--green-900);}
+.pay-primary:hover{background:var(--green-50);}
+.pay-ghost{background:rgba(255,255,255,0.12);color:white;border:1px solid rgba(255,255,255,0.2);}
+.pay-ghost:hover{background:rgba(255,255,255,0.2);}
+
+.payment-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 0;border-bottom:1px solid #F5F0EA;
+}
+.payment-row:last-child{border-bottom:none;}
+.payment-info{display:flex;align-items:center;gap:10px;}
+.payment-icon{
+  width:36px;height:36px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;
+}
+.payment-label{font-size:0.85rem;font-weight:600;}
+.payment-date{font-size:0.75rem;color:var(--text-light);}
+.payment-amount{font-size:0.9rem;font-weight:700;}
+
+/* ── Modal ── */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.45);
+  z-index:1000;display:none;align-items:center;justify-content:center;
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:white;border-radius:20px;
+  width:520px;max-width:90vw;
+  max-height:85vh;overflow-y:auto;
+  box-shadow:0 24px 80px rgba(0,0,0,0.18);
+}
+.modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 24px;border-bottom:1px solid var(--border);
+  position:sticky;top:0;background:white;z-index:1;
+}
+.modal-title{font-size:1rem;font-weight:700;}
+.modal-close{background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--text-mid);}
+.modal-close:hover{color:var(--red);}
+.modal-body{padding:24px;}
+.modal-footer{
+  padding:16px 24px;border-top:1px solid var(--border);
+  display:flex;gap:10px;justify-content:flex-end;
+  position:sticky;bottom:0;background:white;
+}
+.modal-cancel{padding:10px 20px;border-radius:8px;font-size:0.85rem;font-weight:600;cursor:pointer;border:1px solid var(--border);background:white;font-family:'Inter',sans-serif;}
+.modal-submit{padding:10px 22px;border-radius:8px;font-size:0.85rem;font-weight:600;cursor:pointer;border:none;background:var(--green-800);color:white;font-family:'Inter',sans-serif;}
+.modal-submit:hover{background:var(--green-700);}
+
+/* ── Toast ── */
+.toast{
+  position:fixed;bottom:24px;right:24px;
+  background:var(--green-900);color:white;
+  padding:12px 20px;border-radius:12px;
+  font-size:0.85rem;font-weight:500;
+  display:flex;align-items:center;gap:8px;
+  box-shadow:0 8px 28px rgba(0,0,0,0.18);
+  transform:translateY(70px);opacity:0;
+  transition:all 0.3s ease;z-index:2000;
+}
+.toast.show{transform:translateY(0);opacity:1;}
+
+/* ── View Toggle ── */
+.view-toggle{
+  display:flex;background:var(--cream);
+  border:1px solid var(--border);border-radius:10px;
+  padding:3px;gap:2px;
+}
+.toggle-btn{
+  padding:6px 14px;border-radius:7px;
+  font-size:0.78rem;font-weight:600;
+  cursor:pointer;border:none;
+  background:none;color:var(--text-mid);
+  font-family:'Inter',sans-serif;transition:all 0.2s;
+}
+.toggle-btn.active{background:white;color:var(--green-900);box-shadow:0 1px 4px rgba(0,0,0,0.08);}
+
+/* ── Property List ── */
+.property-item{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 0;border-bottom:1px solid #F5F0EA;
+}
+.property-item:last-child{border-bottom:none;}
+.prop-icon{
+  width:44px;height:44px;border-radius:12px;
+  background:var(--earth-50);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;flex-shrink:0;
+}
+.prop-info{flex:1;}
+.prop-name{font-size:0.88rem;font-weight:700;margin-bottom:2px;}
+.prop-address{font-size:0.75rem;color:var(--text-light);}
+.prop-units{font-size:0.75rem;color:var(--text-mid);margin-top:2px;}
+.prop-occ{text-align:right;}
+.prop-occ-num{font-size:0.9rem;font-weight:700;color:var(--text-dark);}
+.prop-occ-label{font-size:0.7rem;color:var(--text-light);}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+::-webkit-scrollbar-thumb:hover{background:var(--earth-300);}
+
+/* ── Responsive ── */
+@media(max-width:900px){
+  .sidebar{display:none;}
+  .kpi-grid{grid-template-columns:1fr 1fr;}
+  .maint-grid{grid-template-columns:1fr;}
+  .doc-grid{grid-template-columns:1fr 1fr;}
+  .grid-2,.grid-3-1{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+<!-- ══ SIDEBAR ══ -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">CCF Properties</div>
+    <div class="logo-sub">ccfprop.com · Portal v2.1</div>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-label">Overview</div>
+    <button class="nav-item active" onclick="showView('dashboard',this)">
+      <span class="nav-icon">🏘️</span> Dashboard
+    </button>
+    <button class="nav-item" onclick="showView('properties',this)">
+      <span class="nav-icon">🏠</span> Properties
+    </button>
+    <button class="nav-item" onclick="showView('financials',this)">
+      <span class="nav-icon">💰</span> Financials
+    </button>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-label">Operations</div>
+    <button class="nav-item" onclick="showView('tenants',this)">
+      <span class="nav-icon">👥</span> Tenants
+    </button>
+    <button class="nav-item" onclick="showView('maintenance',this)">
+      <span class="nav-icon">🔧</span> Maintenance
+      <span class="nav-badge">5</span>
+    </button>
+    <button class="nav-item" onclick="showView('documents',this)">
+      <span class="nav-icon">📁</span> Documents
+    </button>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-label">Tenant View</div>
+    <button class="nav-item" onclick="showView('tenant-portal',this)">
+      <span class="nav-icon">🏡</span> Tenant Portal
+    </button>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <div class="avatar">👤</div>
+      <div class="user-info">
+        <div class="user-name">CCF Admin</div>
+        <div class="user-role">Property Manager</div>
+      </div>
+      <span style="color:rgba(255,255,255,0.3);font-size:0.8rem;">⚙️</span>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ MAIN ══ -->
+<div class="main">
+
+  <!-- Top Bar -->
+  <div class="topbar" id="topbar">
+    <div>
+      <div class="page-title" id="pageTitle">Owner Dashboard</div>
+      <div class="page-sub" id="pageSub">Welcome back — here's your portfolio overview</div>
+    </div>
+    <div class="topbar-actions">
+      <button class="notif-btn">🔔<span class="notif-dot"></span></button>
+      <button class="topbar-btn btn-ghost">⬇️ Export</button>
+      <button class="topbar-btn btn-solid" onclick="openModal('add-property')">+ Add Property</button>
+    </div>
+  </div>
+
+  <!-- ══ CONTENT ══ -->
+  <div class="content">
+
+    <!-- ─── DASHBOARD ─── -->
+    <div class="view active" id="view-dashboard">
+
+      <!-- KPIs -->
+      <div class="kpi-grid">
+        <div class="kpi-card kpi-green">
+          <div class="kpi-icon">🏘️</div>
+          <div class="kpi-val">12</div>
+          <div class="kpi-label">Total Properties</div>
+          <div class="kpi-change change-up">▲ 2 this year</div>
+        </div>
+        <div class="kpi-card kpi-blue">
+          <div class="kpi-icon">🔑</div>
+          <div class="kpi-val">47<span style="font-size:1rem;color:var(--text-light)">/52</span></div>
+          <div class="kpi-label">Units Occupied</div>
+          <div class="kpi-change change-up">▲ 90.4% occupancy</div>
+        </div>
+        <div class="kpi-card kpi-earth">
+          <div class="kpi-icon">💵</div>
+          <div class="kpi-val">$58.4K</div>
+          <div class="kpi-label">Monthly Revenue</div>
+          <div class="kpi-change change-up">▲ 4.2% vs last mo.</div>
+        </div>
+        <div class="kpi-card kpi-red">
+          <div class="kpi-icon">⚠️</div>
+          <div class="kpi-val">5</div>
+          <div class="kpi-label">Open Maintenance</div>
+          <div class="kpi-change change-dn">▲ 2 since last week</div>
+        </div>
+      </div>
+
+      <div class="grid-3-1">
+        <!-- Revenue Chart -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">📊 Revenue Overview (2025)</span>
+            <div class="view-toggle">
+              <button class="toggle-btn active">Monthly</button>
+              <button class="toggle-btn">Quarterly</button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="chart-bars">
+              <div class="chart-col"><div class="chart-bar" style="height:55%;" title="$32K"></div><div class="chart-bar-label">Jan</div></div>
+              <div class="chart-col"><div class="chart-bar" style="height:60%;" title="$35K"></div><div class="chart-bar-label">Feb</div></div>
+              <div class="chart-col"><div class="chart-bar" style="height:65%;" title="$38K"></div><div class="chart-bar-label">Mar</div></div>
+              <div class="chart-col"><div class="chart-bar" style="height:70%;" title="$41K"></div><div class="chart-bar-label">Apr</div></div>
+              <div class="chart-col"><div class="chart-bar" style="height:75%;" title="$44K"></div><div class="chart-bar-label">May</div></div>
+              <div class="chart-col"><div class="chart-bar" style="height:80%;" title="$47K"></div><div class="chart-bar-label">Jun</div></div>
+              <div class="chart-col"><div class="chart-bar" style="height:85%;" title="$50K"></div><div class="chart-bar-label">Jul</div></div>
+              <div class="chart-col"><div class="chart-bar" style="height:88%;" title="$52K"></div><div class="chart-bar-label">Aug</div></div>
+              <div class="chart-col"><div class="chart-bar" style="height:90%;" title="$54K"></div><div class="chart-bar-label">Sep</div></div>
+              <div class="chart-col"><div class="chart-bar" style="height:92%;" title="$55K"></div><div class="chart-bar-label">Oct</div></div>
+              <div class="chart-col"><div class="chart-bar earth" style="height:94%;" title="$56K"></div><div class="chart-bar-label">Nov</div></div>
+              <div class="chart-col"><div class="chart-bar earth" style="height:96%;" title="$58K"></div><div class="chart-bar-label">Dec</div></div>
+            </div>
+            <div class="chart-axis">
+              <span>$30K</span><span>$40K</span><span>$50K</span><span>$58K</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Occupancy Breakdown -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">🏠 Occupancy</span>
+          </div>
+          <div class="card-body">
+            <div style="text-align:center;margin-bottom:20px;">
+              <div style="font-size:2.6rem;font-weight:700;color:var(--green-800);">90.4%</div>
+              <div style="font-size:0.78rem;color:var(--text-light);">Portfolio Occupancy Rate</div>
+            </div>
+            <div class="progress-row">
+              <div class="progress-label">Residential</div>
+              <div class="progress-bar"><div class="progress-fill" style="width:93%;background:var(--green-500);"></div></div>
+              <div class="progress-val">93%</div>
+            </div>
+            <div class="progress-row">
+              <div class="progress-label">Commercial</div>
+              <div class="progress-bar"><div class="progress-fill" style="width:85%;background:var(--earth-500);"></div></div>
+              <div class="progress-val">85%</div>
+            </div>
+            <div class="progress-row">
+              <div class="progress-label">Mixed-Use</div>
+              <div class="progress-bar"><div class="progress-fill" style="width:88%;background:var(--green-300);"></div></div>
+              <div class="progress-val">88%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Properties List -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">🏘️ Property Portfolio</span>
+            <button class="card-action" onclick="showView('properties',null)">View all →</button>
+          </div>
+          <div class="card-body">
+            <div class="property-item">
+              <div class="prop-icon">🏢</div>
+              <div class="prop-info">
+                <div class="prop-name">Elm Court Apartments</div>
+                <div class="prop-address">142 Elm St, Springfield, IL</div>
+                <div class="prop-units">12 units</div>
+              </div>
+              <div class="prop-occ">
+                <div class="prop-occ-num">11/12</div>
+                <div class="prop-occ-label">occupied</div>
+              </div>
+            </div>
+            <div class="property-item">
+              <div class="prop-icon">🏠</div>
+              <div class="prop-info">
+                <div class="prop-name">Maple Ridge Homes</div>
+                <div class="prop-address">88 Maple Dr, Riverside, IL</div>
+                <div class="prop-units">8 units</div>
+              </div>
+              <div class="prop-occ">
+                <div class="prop-occ-num">8/8</div>
+                <div class="prop-occ-label">occupied</div>
+              </div>
+            </div>
+            <div class="property-item">
+              <div class="prop-icon">🏗️</div>
+              <div class="prop-info">
+                <div class="prop-name">Cedar Point Plaza</div>
+                <div class="prop-address">301 Cedar Blvd, Oak Park, IL</div>
+                <div class="prop-units">6 commercial units</div>
+              </div>
+              <div class="prop-occ">
+                <div class="prop-occ-num">5/6</div>
+                <div class="prop-occ-label">occupied</div>
+              </div>
+            </div>
+            <div class="property-item">
+              <div class="prop-icon">🏡</div>
+              <div class="prop-info">
+                <div class="prop-name">Birchwood Villas</div>
+                <div class="prop-address">55 Birch Lane, Evanston, IL</div>
+                <div class="prop-units">16 units</div>
+              </div>
+              <div class="prop-occ">
+                <div class="prop-occ-num">14/16</div>
+                <div class="prop-occ-label">occupied</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Activity Feed -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">🔔 Recent Activity</span>
+            <button class="card-action">See all</button>
+          </div>
+          <div class="card-body">
+            <div class="activity-item">
+              <div class="activity-dot" style="background:var(--green-100);">💰</div>
+              <div class="activity-info">
+                <div class="activity-title">Rent Payment Received</div>
+                <div class="activity-desc">Unit 4B – Elm Court · $1,450</div>
+                <div class="activity-time">2 hours ago</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot" style="background:#FEE2E2;">🔧</div>
+              <div class="activity-info">
+                <div class="activity-title">Maintenance Request Opened</div>
+                <div class="activity-desc">Unit 7 – Birchwood Villas · Leaking pipe</div>
+                <div class="activity-time">4 hours ago</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot" style="background:#DBEAFE;">📄</div>
+              <div class="activity-info">
+                <div class="activity-title">Lease Renewed</div>
+                <div class="activity-desc">Unit 2A – Maple Ridge · 12-month term</div>
+                <div class="activity-time">Yesterday</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot" style="background:#FEF3C7;">⚠️</div>
+              <div class="activity-info">
+                <div class="activity-title">Late Rent Notice Sent</div>
+                <div class="activity-desc">Unit 3C – Elm Court · 5 days overdue</div>
+                <div class="activity-time">Yesterday</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-dot" style="background:var(--green-100);">🔑</div>
+              <div class="activity-info">
+                <div class="activity-title">New Tenant Move-In</div>
+                <div class="activity-desc">Unit 1B – Cedar Point Plaza</div>
+                <div class="activity-time">2 days ago</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /dashboard -->
+
+    <!-- ─── TENANTS ─── -->
+    <div class="view" id="view-tenants">
+      <div class="card" style="margin-bottom:20px;">
+        <div class="card-header">
+          <span class="card-title">👥 All Tenants</span>
+          <button class="topbar-btn btn-solid" style="padding:8px 16px;font-size:0.8rem;" onclick="openModal('add-tenant')">+ Add Tenant</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Tenant</th><th>Unit</th><th>Property</th>
+              <th>Lease End</th><th>Rent</th><th>Status</th><th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Angela Reeves</strong><div style="font-size:0.72rem;color:var(--text-light);">angela.r@email.com</div></td>
+              <td>4B</td><td>Elm Court</td><td>Dec 2025</td><td>$1,450</td>
+              <td><span class="pill pill-green"><span class="pill-dot"></span>Current</span></td>
+              <td><button class="card-action" onclick="showToast('Opening tenant profile…')">View →</button></td>
+            </tr>
+            <tr>
+              <td><strong>Marcus Webb</strong><div style="font-size:0.72rem;color:var(--text-light);">m.webb@email.com</div></td>
+              <td>2A</td><td>Maple Ridge</td><td>Mar 2026</td><td>$1,200</td>
+              <td><span class="pill pill-green"><span class="pill-dot"></span>Current</span></td>
+              <td><button class="card-action" onclick="showToast('Opening tenant profile…')">View →</button></td>
+            </tr>
+            <tr>
+              <td><strong>Priya Nair</strong><div style="font-size:0.72rem;color:var(--text-light);">p.nair@email.com</div></td>
+              <td>3C</td><td>Elm Court</td><td>Oct 2025</td><td>$1,350</td>
+              <td><span class="pill pill-amber"><span class="pill-dot"></span>Late</span></td>
+              <td><button class="card-action" onclick="showToast('Opening tenant profile…')">View →</button></td>
+            </tr>
+            <tr>
+              <td><strong>David Kowalski</strong><div style="font-size:0.72rem;color:var(--text-light);">d.kowal@email.com</div></td>
+              <td>7</td><td>Birchwood</td><td>Jan 2026</td><td>$1,600</td>
+              <td><span class="pill pill-green"><span class="pill-dot"></span>Current</span></td>
+              <td><button class="card-action" onclick="showToast('Opening tenant profile…')">View →</button></td>
+            </tr>
+            <tr>
+              <td><strong>Sofia Ortega</strong><div style="font-size:0.72rem;color:var(--text-light);">s.ortega@email.com</div></td>
+              <td>1B</td><td>Cedar Point</td><td>Feb 2026</td><td>$2,100</td>
+              <td><span class="pill pill-blue"><span class="pill-dot"></span>New</span></td>
+              <td><button class="card-action" onclick="showToast('Opening tenant profile…')">View →</button></td>
+            </tr>
+            <tr>
+              <td><strong>James Okafor</strong><div style="font-size:0.72rem;color:var(--text-light);">j.okafor@email.com</div></td>
+              <td>9</td><td>Elm Court</td><td>Jun 2025</td><td>$1,300</td>
+              <td><span class="pill pill-red"><span class="pill-dot"></span>Expiring</span></td>
+              <td><button class="card-action" onclick="showToast('Opening tenant profile…')">View →</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ─── MAINTENANCE ─── -->
+    <div class="view" id="view-maintenance">
+      <div class="maint-grid">
+        <div class="maint-kpi"><div class="maint-kpi-num" style="color:var(--red);">5</div><div class="maint-kpi-label">Open Tickets</div></div>
+        <div class="maint-kpi"><div class="maint-kpi-num" style="color:var(--amber);">3</div><div class="maint-kpi-label">In Progress</div></div>
+        <div class="maint-kpi"><div class="maint-kpi-num" style="color:var(--green-700);">28</div><div class="maint-kpi-label">Resolved (YTD)</div></div>
+      </div>
+
+      <div class="card" style="margin-bottom:20px;">
+        <div class="card-header">
+          <span class="card-title">🔧 Open Requests</span>
+          <button class="topbar-btn btn-solid" style="padding:8px 16px;font-size:0.8rem;" onclick="openModal('new-ticket')">+ New Request</button>
+        </div>
+        <div class="card-body" style="padding-top:8px;">
+
+          <div class="ticket-card" onclick="openModal('ticket-detail')">
+            <div class="ticket-icon" style="background:#FEE2E2;">🚰</div>
+            <div class="ticket-body">
+              <div class="ticket-title">Leaking Pipe Under Kitchen Sink</div>
+              <div class="ticket-meta">Unit 7 · Birchwood Villas · Submitted by David Kowalski</div>
+              <div class="ticket-footer">
+                <span class="priority-tag pri-high">🔴 High Priority</span>
+                <span class="pill pill-amber"><span class="pill-dot"></span>In Progress</span>
+              </div>
+            </div>
+            <div style="font-size:0.72rem;color:var(--text-light);white-space:nowrap;">4 hrs ago</div>
+          </div>
+
+          <div class="ticket-card" onclick="openModal('ticket-detail')">
+            <div class="ticket-icon" style="background:#FEF3C7;">❄️</div>
+            <div class="ticket-body">
+              <div class="ticket-title">AC Unit Not Cooling Properly</div>
+              <div class="ticket-meta">Unit 4B · Elm Court · Submitted by Angela Reeves</div>
+              <div class="ticket-footer">
+                <span class="priority-tag pri-med">🟡 Medium Priority</span>
+                <span class="pill pill-blue"><span class="pill-dot"></span>Assigned</span>
+              </div>
+            </div>
+            <div style="font-size:0.72rem;color:var(--text-light);white-space:nowrap;">1 day ago</div>
+          </div>
+
+          <div class="ticket-card" onclick="openModal('ticket-detail')">
+            <div class="ticket-icon" style="background:var(--green-100);">💡</div>
+            <div class="ticket-body">
+              <div class="ticket-title">Hallway Light Fixture Flickering</div>
+              <div class="ticket-meta">Common Area · Maple Ridge Homes</div>
+              <div class="ticket-footer">
+                <span class="priority-tag pri-low">🟢 Low Priority</span>
+                <span class="pill pill-grey"><span class="pill-dot"></span>Open</span>
+              </div>
+            </div>
+            <div style="font-size:0.72rem;color:var(--text-light);white-space:nowrap;">2 days ago</div>
+          </div>
+
+          <div class="ticket-card" onclick="openModal('ticket-detail')">
+            <div class="ticket-icon" style="background:#FEE2E2;">🔐</div>
+            <div class="ticket-body">
+              <div class="ticket-title">Front Door Lock Sticking</div>
+              <div class="ticket-meta">Unit 3C · Elm Court · Submitted by Priya Nair</div>
+              <div class="ticket-footer">
+                <span class="priority-tag pri-high">🔴 High Priority</span>
+                <span class="pill pill-amber"><span class="pill-dot"></span>In Progress</span>
+              </div>
+            </div>
+            <div style="font-size:0.72rem;color:var(--text-light);white-space:nowrap;">3 days ago</div>
+          </div>
+
+          <div class="ticket-card" onclick="openModal('ticket-detail')">
+            <div class="ticket-icon" style="background:var(--earth-100);">🚿</div>
+            <div class="ticket-body">
+              <div class="ticket-title">Shower Drain Slow / Blocked</div>
+              <div class="ticket-meta">Unit 2A · Maple Ridge · Submitted by Marcus Webb</div>
+              <div class="ticket-footer">
+                <span class="priority-tag pri-low">🟢 Low Priority</span>
+                <span class="pill pill-grey"><span class="pill-dot"></span>Open</span>
+              </div>
+            </div>
+            <div style="font-size:0.72rem;color:var(--text-light);white-space:nowrap;">4 days ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── DOCUMENTS ─── -->
+    <div class="view" id="view-documents">
+      <div class="upload-zone" onclick="showToast('📁 Choose files to upload…')">
+        <div class="upload-icon">☁️</div>
+        <div class="upload-text">Drop files here or click to upload</div>
+        <div class="upload-sub">Supports PDF, DOCX, XLSX, JPG, PNG · Max 50MB per file</div>
+      </div>
+
+      <div class="card" style="margin-bottom:20px;">
+        <div class="card-header">
+          <span class="card-title">📋 Lease Agreements</span>
+          <button class="card-action" onclick="showToast('Filtering leases…')">Filter</button>
+        </div>
+        <div class="card-body">
+          <div class="doc-grid">
+            <div class="doc-card">
+              <div class="doc-icon">📄</div>
+              <div class="doc-name">Elm Court – Unit 4B Lease</div>
+              <div class="doc-meta">Angela Reeves · Expires Dec 2025 · PDF · 2.1 MB</div>
+              <div class="doc-actions">
+                <button class="doc-btn doc-view" onclick="showToast('📄 Opening lease…')">👁 View</button>
+                <button class="doc-btn doc-dl" onclick="showToast('⬇️ Downloading…')">⬇ Download</button>
+              </div>
+            </div>
+            <div class="doc-card">
+              <div class="doc-icon">📄</div>
+              <div class="doc-name">Maple Ridge – Unit 2A Lease</div>
+              <div class="doc-meta">Marcus Webb · Expires Mar 2026 · PDF · 1.8 MB</div>
+              <div class="doc-actions">
+                <button class="doc-btn doc-view" onclick="showToast('📄 Opening lease…')">👁 View</button>
+                <button class="doc-btn doc-dl" onclick="showToast('⬇️ Downloading…')">⬇ Download</button>
+              </div>
+            </div>
+            <div class="doc-card">
+              <div class="doc-icon">📄</div>
+              <div class="doc-name">Cedar Point – Unit 1B Lease</div>
+              <div class="doc-meta">Sofia Ortega · Expires Feb 2026 · PDF · 2.4 MB</div>
+              <div class="doc-actions">
+                <button class="doc-btn doc-view" onclick="showToast('📄 Opening lease…')">👁 View</button>
+                <button class="doc-btn doc-dl" onclick="showToast('⬇️ Downloading…')">⬇ Download</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🗂️ Property Documents</span>
+          <button class="card-action" onclick="showToast('Filtering documents…')">Filter</button>
+        </div>
+        <div class="card-body">
+          <div class="doc-grid">
+            <div class="doc-card">
+              <div class="doc-icon">🏢</div>
+              <div class="doc-name">Elm Court – Insurance Policy</div>
+              <div class="doc-meta">Renewed Jan 2025 · PDF · 890 KB</div>
+              <div class="doc-actions">
+                <button class="doc-btn doc-view" onclick="showToast('📄 Opening document…')">👁 View</button>
+                <button class="doc-btn doc-dl" onclick="showToast('⬇️ Downloading…')">⬇ Download</button>
+              </div>
+            </div>
+            <div class="doc-card">
+              <div class="doc-icon">🔍</div>
+              <div class="doc-name">Birchwood – Inspection Report</div>
+              <div class="doc-meta">Annual Inspection · Oct 2024 · PDF · 3.2 MB</div>
+              <div class="doc-actions">
+                <button class="doc-btn doc-view" onclick="showToast('📄 Opening document…')">👁 View</button>
+                <button class="doc-btn doc-dl" onclick="showToast('⬇️ Downloading…')">⬇ Download</button>
+              </div>
+            </div>
+            <div class="doc-card">
+              <div class="doc-icon">📊</div>
+              <div class="doc-name">Portfolio – Q4 2024 Report</div>
+              <div class="doc-meta">Financial Summary · XLSX · 1.1 MB</div>
+              <div class="doc-actions">
+                <button class="doc-btn doc-view" onclick="showToast('📄 Opening document…')">👁 View</button>
+                <button class="doc-btn doc-dl" onclick="showToast('⬇️ Downloading…')">⬇ Download</button>
+              </div>
+            </div>
+            <div class="doc-card">
+              <div class="doc-icon">⚖️</div>
+              <div class="doc-name">CCF – Operating Agreement</div>
+              <div class="doc-meta">Legal · Updated Aug 2024 · PDF · 4.5 MB</div>
+              <div class="doc-actions">
+                <button class="doc-btn doc-view" onclick="showToast('📄 Opening document…')">👁 View</button>
+                <button class="doc-btn doc-dl" onclick="showToast('⬇️ Downloading…')">⬇ Download</button>
+              </div>
+            </div>
+            <div class="doc-card">
+              <div class="doc-icon">🔑</div>
+              <div class="doc-name">Move-In Checklist Template</div>
+              <div class="doc-meta">Standard Template · DOCX · 340 KB</div>
+              <div class="doc-actions">
+                <button class="doc-btn doc-view" onclick="showToast('📄 Opening document…')">👁 View</button>
+                <button class="doc-btn doc-dl" onclick="showToast('⬇️ Downloading…')">⬇ Download</button>
+              </div>
+            </div>
+            <div class="doc-card" onclick="showToast('📁 Choose files to upload…')" style="border-style:dashed;background:var(--cream);align-items:center;justify-content:center;text-align:center;min-height:130px;">
+              <div style="font-size:2rem;">➕</div>
+              <div style="font-size:0.82rem;font-weight:600;color:var(--text-light);margin-top:6px;">Upload New Document</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── TENANT PORTAL ─── -->
+    <div class="view" id="view-tenant-portal">
+      <!-- Rent Banner -->
+      <div class="rent-card">
+        <div style="font-size:0.82rem;opacity:0.75;">Next Payment Due</div>
+        <div class="rent-amount">$1,450.00</div>
+        <div class="rent-due">Due: February 1, 2026 · Unit 4B, Elm Court Apartments</div>
+        <div class="rent-btns">
+          <button class="rent-pay-btn pay-primary" onclick="openModal('pay-rent')">💳 Pay Now</button>
+          <button class="rent-pay-btn pay-ghost" onclick="showToast('Setting up autopay…')">🔄 Set Up Autopay</button>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <!-- Payment History -->
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">💵 Payment History</span>
+            <button class="card-action">See all</button>
+          </div>
+          <div class="card-body">
+            <div class="payment-row">
+              <div class="payment-info">
+                <div class="payment-icon" style="background:var(--green-100);">✅</div>
+                <div>
+                  <div class="payment-label">January 2026 Rent</div>
+                  <div class="payment-date">Paid Jan 1, 2026 · ACH</div>
+                </div>
+              </div>
+              <div>
+                <div class="payment-amount" style="color:var(--green-800);">$1,450.00</div>
+                <span class="pill pill-green" style="font-size:0.68rem;"><span class="pill-dot"></span>Paid</span>
+              </div>
+            </div>
+            <div class="payment-row">
+              <div class="payment-info">
+                <div class="payment-icon" style="background:var(--green-100);">✅</div>
+                <div>
+                  <div class="payment-label">December 2025 Rent</div>
+                  <div class="payment-date">Paid Dec 1, 2025 · ACH</div>
+                </div>
+              </div>
+              <div>
+                <div class="payment-amount" style="color:var(--green-800);">$1,450.00</div>
+                <span class="pill pill-green" style="font-size:0.68rem;"><span class="pill-dot"></span>Paid</span>
+              </div>
+            </div>
+            <div class="payment-row">
+              <div class="payment-info">
+                <div class="payment-icon" style="background:var(--green-100);">✅</div>
+                <div>
+                  <div class="payment-label">November 2025 Rent</div>
+                  <div class="payment-date">Paid Nov 1, 2025 · Card</div>
+                </div>
+              </div>
+              <div>
+                <div class="payment-amount" style="color:var(--green-800);">$1,450.00</div>
+                <span class="pill pill-green" style="font-size:0.68rem;"><span class="pill-dot"></span>Paid</span>
+              </div>
+            </div>
+            <div class="payment-row">
+              <div class="payment-info">
+                <div class="payment-icon" style="background:#FEF3C7;">⚠️</div>
+                <div>
+                  <div class="payment-label">October 2025 Rent</div>
+                  <div class="payment-date">Paid Oct 8, 2025 · Late</div>
+                </div>
+              </div>
+              <div>
+                <div class="payment-amount">$1,525.00</div>
+                <span class="pill pill-amber" style="font-size:0.68rem;"><span class="pill-dot"></span>Late Fee</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tenant Info + Docs -->
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div class="card">
+            <div class="card-header"><span class="card-title">🏠 My Tenancy</span></div>
+            <div class="card-body">
+              <table>
+                <tbody>
+                  <tr><td style="color:var(--text-light);width:130px;">Unit</td><td><strong>4B – Elm Court Apartments</strong></td></tr>
+                  <tr><td style="color:var(--text-light);">Lease Start</td><td>January 1, 2025</td></tr>
+                  <tr><td style="color:var(--text-light);">Lease End</td><td>December 31, 2025</td></tr>
+                  <tr><td style="color:var(--text-light);">Monthly Rent</td><td><strong>$1,450.00</strong></td></tr>
+                  <tr><td style="color:var(--text-light);">Security Dep.</td><td>$1,450.00 (held)</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header"><span class="card-title">📁 My Documents</span></div>
+            <div class="card-body" style="display:flex;flex-direction:column;gap:8px;">
+              <button class="doc-btn doc-view" style="text-align:left;padding:10px 12px;" onclick="showToast('📄 Opening lease…')">📄 My Lease Agreement</button>
+              <button class="doc-btn doc-view" style="text-align:left;padding:10px 12px;" onclick="showToast('📄 Opening checklist…')">✅ Move-In Inspection Checklist</button>
+              <button class="doc-btn doc-dl" style="text-align:left;padding:10px 12px;" onclick="showToast('📄 Opening statements…')">💵 Payment Statements</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Maintenance Request -->
+      <div class="card" style="margin-top:4px;">
+        <div class="card-header">
+          <span class="card-title">🔧 Submit a Maintenance Request</span>
+        </div>
+        <div class="card-body">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Issue Category</label>
+              <select>
+                <option>Plumbing</option>
+                <option>Electrical</option>
+                <option>HVAC / Heating / Cooling</option>
+                <option>Appliances</option>
+                <option>Structural / Doors / Windows</option>
+                <option>Pest Control</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Priority</label>
+              <select>
+                <option>Low – Not Urgent</option>
+                <option>Medium – Needs Attention</option>
+                <option>High – Urgent</option>
+                <option>Emergency – Safety Risk</option>
+              </select>
+            </div>
+            <div class="form-group full">
+              <label>Description of Issue</label>
+              <textarea placeholder="Please describe the issue in detail — what's happening, where, and when it started…"></textarea>
+            </div>
+            <div class="form-group full">
+              <label>Preferred Access Times</label>
+              <input type="text" placeholder="e.g. Weekdays after 5pm, or Saturday mornings" />
+            </div>
+          </div>
+          <div style="display:flex;gap:10px;margin-top:16px;justify-content:flex-end;">
+            <button class="topbar-btn btn-ghost">Attach Photos 📷</button>
+            <button class="topbar-btn btn-solid" onclick="showToast('✅ Maintenance request submitted!')">Submit Request</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── PROPERTIES placeholder ─── -->
+    <div class="view" id="view-properties">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">🏘️ All Properties</span>
+          <button class="topbar-btn btn-solid" style="padding:8px 16px;font-size:0.8rem;" onclick="openModal('add-property')">+ Add Property</button>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Property</th><th>Address</th><th>Type</th><th>Units</th><th>Occupied</th><th>Monthly Income</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Elm Court Apartments</strong></td><td>142 Elm St, Springfield</td><td>Residential</td><td>12</td><td>11</td><td>$17,400</td><td><span class="pill pill-green"><span class="pill-dot"></span>Active</span></td></tr>
+            <tr><td><strong>Maple Ridge Homes</strong></td><td>88 Maple Dr, Riverside</td><td>Residential</td><td>8</td><td>8</td><td>$10,800</td><td><span class="pill pill-green"><span class="pill-dot"></span>Active</span></td></tr>
+            <tr><td><strong>Cedar Point Plaza</strong></td><td>301 Cedar Blvd, Oak Park</td><td>Commercial</td><td>6</td><td>5</td><td>$14,500</td><td><span class="pill pill-green"><span class="pill-dot"></span>Active</span></td></tr>
+            <tr><td><strong>Birchwood Villas</strong></td><td>55 Birch Lane, Evanston</td><td>Residential</td><td>16</td><td>14</td><td>$23,400</td><td><span class="pill pill-green"><span class="pill-dot"></span>Active</span></td></tr>
+            <tr><td><strong>Oakdale Commons</strong></td><td>200 Oak Ave, Naperville</td><td>Mixed-Use</td><td>10</td><td>9</td><td>$15,200</td><td><span class="pill pill-amber"><span class="pill-dot"></span>Partial</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ─── FINANCIALS placeholder ─── -->
+    <div class="view" id="view-financials">
+      <div class="kpi-grid">
+        <div class="kpi-card kpi-green"><div class="kpi-icon">💵</div><div class="kpi-val">$58.4K</div><div class="kpi-label">Monthly Revenue</div></div>
+        <div class="kpi-card kpi-earth"><div class="kpi-icon">📤</div><div class="kpi-val">$28.1K</div><div class="kpi-label">Monthly Expenses</div></div>
+        <div class="kpi-card kpi-blue"><div class="kpi-icon">📈</div><div class="kpi-val">$30.3K</div><div class="kpi-label">Net Operating Income</div></div>
+        <div class="kpi-card kpi-green"><div class="kpi-icon">🏦</div><div class="kpi-val">51.9%</div><div class="kpi-label">NOI Margin</div></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-title">💰 Revenue by Property (December 2025)</span></div>
+        <table>
+          <thead><tr><th>Property</th><th>Gross Rent</th><th>Collected</th><th>Outstanding</th><th>Expenses</th><th>NOI</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Elm Court</strong></td><td>$17,400</td><td>$16,050</td><td style="color:var(--red);">$1,350</td><td>$6,200</td><td style="color:var(--green-800);font-weight:700;">$9,850</td></tr>
+            <tr><td><strong>Maple Ridge</strong></td><td>$10,800</td><td>$10,800</td><td>—</td><td>$3,400</td><td style="color:var(--green-800);font-weight:700;">$7,400</td></tr>
+            <tr><td><strong>Cedar Point</strong></td><td>$14,500</td><td>$14,500</td><td>—</td><td>$5,800</td><td style="color:var(--green-800);font-weight:700;">$8,700</td></tr>
+            <tr><td><strong>Birchwood</strong></td><td>$23,400</td><td>$23,400</td><td>—</td><td>$9,200</td><td style="color:var(--green-800);font-weight:700;">$14,200</td></tr>
+            <tr><td><strong>Oakdale</strong></td><td>$15,200</td><td>$15,200</td><td>—</td><td>$3,500</td><td style="color:var(--green-800);font-weight:700;">$11,700</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ══ MODALS ══ -->
+
+<!-- Add Property -->
+<div class="modal-overlay" id="modal-add-property">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">🏠 Add New Property</span>
+      <button class="modal-close" onclick="closeModal('add-property')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-section">
+        <div class="form-title">Property Details</div>
+        <div class="form-grid">
+          <div class="form-group full"><label>Property Name</label><input type="text" placeholder="e.g. Elm Court Apartments"/></div>
+          <div class="form-group full"><label>Address</label><input type="text" placeholder="Street address"/></div>
+          <div class="form-group"><label>City</label><input type="text" placeholder="City"/></div>
+          <div class="form-group"><label>State / ZIP</label><input type="text" placeholder="IL · 60601"/></div>
+          <div class="form-group"><label>Property Type</label><select><option>Residential</option><option>Commercial</option><option>Mixed-Use</option></select></div>
+          <div class="form-group"><label>Total Units</label><input type="number" placeholder="0"/></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-cancel" onclick="closeModal('add-property')">Cancel</button>
+      <button class="modal-submit" onclick="submitModal('add-property','Property added!')">Save Property</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Tenant -->
+<div class="modal-overlay" id="modal-add-tenant">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">👤 Add New Tenant</span>
+      <button class="modal-close" onclick="closeModal('add-tenant')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group"><label>First Name</label><input type="text" placeholder="First name"/></div>
+        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Last name"/></div>
+        <div class="form-group full"><label>Email Address</label><input type="email" placeholder="tenant@email.com"/></div>
+        <div class="form-group"><label>Phone</label><input type="tel" placeholder="+1 (000) 000-0000"/></div>
+        <div class="form-group"><label>Property</label><select><option>Elm Court</option><option>Maple Ridge</option><option>Cedar Point</option><option>Birchwood</option></select></div>
+        <div class="form-group"><label>Unit</label><input type="text" placeholder="e.g. 4B"/></div>
+        <div class="form-group"><label>Monthly Rent ($)</label><input type="number" placeholder="0.00"/></div>
+        <div class="form-group"><label>Lease Start</label><input type="date"/></div>
+        <div class="form-group"><label>Lease End</label><input type="date"/></div>
+        <div class="form-group"><label>Security Deposit ($)</label><input type="number" placeholder="0.00"/></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-cancel" onclick="closeModal('add-tenant')">Cancel</button>
+      <button class="modal-submit" onclick="submitModal('add-tenant','Tenant added successfully!')">Save Tenant</button>
+    </div>
+  </div>
+</div>
+
+<!-- New Maintenance Ticket -->
+<div class="modal-overlay" id="modal-new-ticket">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">🔧 Log Maintenance Request</span>
+      <button class="modal-close" onclick="closeModal('new-ticket')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group"><label>Property</label><select><option>Elm Court</option><option>Maple Ridge</option><option>Cedar Point</option><option>Birchwood</option></select></div>
+        <div class="form-group"><label>Unit</label><input type="text" placeholder="e.g. 4B"/></div>
+        <div class="form-group"><label>Category</label><select><option>Plumbing</option><option>Electrical</option><option>HVAC</option><option>Appliances</option><option>Structural</option><option>Other</option></select></div>
+        <div class="form-group"><label>Priority</label><select><option>Low</option><option>Medium</option><option>High</option><option>Emergency</option></select></div>
+        <div class="form-group full"><label>Issue Description</label><textarea placeholder="Describe the maintenance issue…"></textarea></div>
+        <div class="form-group"><label>Assign To</label><select><option>Unassigned</option><option>Mike – Plumber</option><option>Sam – Electrician</option><option>General Maintenance</option></select></div>
+        <div class="form-group"><label>Target Date</label><input type="date"/></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-cancel" onclick="closeModal('new-ticket')">Cancel</button>
+      <button class="modal-submit" onclick="submitModal('new-ticket','Ticket logged successfully!')">Log Ticket</button>
+    </div>
+  </div>
+</div>
+
+<!-- Ticket Detail -->
+<div class="modal-overlay" id="modal-ticket-detail">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">🚰 Leaking Pipe – Unit 7, Birchwood</span>
+      <button class="modal-close" onclick="closeModal('ticket-detail')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="display:flex;gap:8px;margin-bottom:16px;">
+        <span class="priority-tag pri-high">🔴 High Priority</span>
+        <span class="pill pill-amber"><span class="pill-dot"></span>In Progress</span>
+      </div>
+      <div class="form-grid">
+        <div class="form-group"><label>Assigned To</label><select><option selected>Mike – Plumber</option><option>Sam – Electrician</option><option>General Maintenance</option></select></div>
+        <div class="form-group"><label>Status</label><select><option>Open</option><option selected>In Progress</option><option>Resolved</option><option>Closed</option></select></div>
+        <div class="form-group full"><label>Notes / Update</label><textarea placeholder="Add a progress note or update…">Visited unit, turned off supply valve. Waiting on replacement part – ETA 2 days.</textarea></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-cancel" onclick="closeModal('ticket-detail')">Close</button>
+      <button class="modal-submit" onclick="submitModal('ticket-detail','Ticket updated!')">Update Ticket</button>
+    </div>
+  </div>
+</div>
+
+<!-- Pay Rent -->
+<div class="modal-overlay" id="modal-pay-rent">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">💳 Pay Rent – February 2026</span>
+      <button class="modal-close" onclick="closeModal('pay-rent')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="background:var(--green-50);border:1px solid var(--green-100);border-radius:12px;padding:16px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;">
+        <div><div style="font-size:0.78rem;color:var(--text-light);">Amount Due</div><div style="font-size:1.8rem;font-weight:700;color:var(--green-900);">$1,450.00</div></div>
+        <div style="font-size:0.82rem;color:var(--text-mid);">Due: Feb 1, 2026</div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group full"><label>Payment Method</label><select><option>ACH Bank Transfer</option><option>Debit/Credit Card</option><option>Check</option></select></div>
+        <div class="form-group full"><label>Bank Account (last 4 digits)</label><input type="text" placeholder="••••  ••••  ••••  1234" readonly value="ACH on file – Chase ••••4521"/></div>
+        <div class="form-group full"><label>Payment Date</label><input type="date" value="2026-02-01"/></div>
+        <div class="form-group full"><label>Note (optional)</label><input type="text" placeholder="e.g. February rent payment"/></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-cancel" onclick="closeModal('pay-rent')">Cancel</button>
+      <button class="modal-submit" onclick="submitModal('pay-rent','✅ Payment of $1,450 submitted!')">Confirm Payment</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">
+  <span id="toastMsg">Done!</span>
+</div>
+
+<script>
+// ── Navigation ──
+const pageInfo = {
+  dashboard:     {title:'Owner Dashboard',       sub:'Welcome back — here\'s your portfolio overview'},
+  properties:    {title:'Properties',            sub:'All properties in your CCF portfolio'},
+  financials:    {title:'Financials',            sub:'Revenue, expenses and net operating income'},
+  tenants:       {title:'Tenants',               sub:'Manage tenant records, leases and contacts'},
+  maintenance:   {title:'Maintenance',           sub:'Track and resolve property maintenance requests'},
+  documents:     {title:'Documents',             sub:'Leases, reports and property files'},
+  'tenant-portal':{title:'Tenant Portal',        sub:'Logged in as Angela Reeves · Unit 4B, Elm Court'},
+};
+
+function showView(id, btn) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('view-'+id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  else {
+    document.querySelectorAll('.nav-item').forEach(n => {
+      if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'"+id+"'")) n.classList.add('active');
+    });
+  }
+  const info = pageInfo[id] || {title:id, sub:''};
+  document.getElementById('pageTitle').textContent = info.title;
+  document.getElementById('pageSub').textContent = info.sub;
+}
+
+// ── Modals ──
+function openModal(id) {
+  document.getElementById('modal-'+id).classList.add('open');
+}
+function closeModal(id) {
+  document.getElementById('modal-'+id).classList.remove('open');
+}
+function submitModal(id, msg) {
+  closeModal(id);
+  showToast('✅ ' + msg);
+}
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); });
+});
+
+// ── Toast ──
+let toastTimer;
+function showToast(msg) {
+  clearTimeout(toastTimer);
+  document.getElementById('toastMsg').textContent = msg;
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ── View toggles ──
+document.querySelectorAll('.view-toggle').forEach(tog => {
+  tog.querySelectorAll('.toggle-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      tog.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+});
+</script>
+</body>
+</html>
